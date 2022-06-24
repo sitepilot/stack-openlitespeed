@@ -1,0 +1,6 @@
+---
+dependencies:
+  - role: docker
+    tags: ["docker"]
+  - role: lshttpd
+    tags: ["lshttpd"]

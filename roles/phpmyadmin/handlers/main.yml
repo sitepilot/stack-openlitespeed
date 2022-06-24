@@ -1,0 +1,5 @@
+---
+- name: reload lshttpd
+  service:
+    name: lshttpd
+    state: reloaded

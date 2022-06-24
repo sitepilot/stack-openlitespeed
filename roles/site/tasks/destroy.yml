@@ -1,0 +1,26 @@
+---
+- assert:
+    that:
+      - site_name | length > 0
+
+- name: "destroy site files"
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/opt/sitepilot/sites/{{ site_name }}"
+    - "/usr/local/lsws/conf/vhosts/{{ site_name }}.conf"
+    - "/usr/local/lsws/conf/vhosts/{{ site_name }}.conf0"
+    - "/usr/local/lsws/conf/vhosts/{{ site_name }}.conf0,v"
+
+  notify:
+    - reload lshttpd
+
+- meta: flush_handlers
+
+- name: "destroy site user"
+  user:
+    name: "{{ site_user }}"
+    state: absent
+    force: true
+  when: not custom_user

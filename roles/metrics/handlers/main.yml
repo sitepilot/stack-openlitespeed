@@ -1,0 +1,10 @@
+---
+- name: restart node-exporter
+  service:
+    name: node-exporter
+    state: restarted
+
+- name: reload lshttpd
+  service:
+    name: lshttpd
+    state: reloaded

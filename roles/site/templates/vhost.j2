@@ -1,0 +1,67 @@
+# {{ ansible_managed }}
+virtualHost {{ site_name }} {
+    user                      {{ site_name }}
+    group                     {{ site_name }}
+    
+    vhRoot                    /opt/sitepilot/sites/{{ site_name }}
+    docRoot                   $VH_ROOT/files/{{ site_document_root }}
+
+    vhDomain                  {{ site_domains[0] }}
+    vhAliases                 {{ site_domains|join(', ') }}
+
+    include                   $SERVER_ROOT/conf/vhost_config.conf
+
+    extprocessor {{ site_name }}-php {
+        type                    lsapi
+        address                 uds://tmp/lshttpd/{{ site_name }}.sock
+        maxConns                {{ site_php_max_children }}
+        env                     PLATFORM=Sitepilot
+        env                     PHP_LSAPI_CHILDREN={{ site_php_max_children }}
+        initTimeout             60
+        retryTimeout            0
+        persistConn             1
+        respBuffer              0
+        autoStart               2
+        path                    lsphp{{ site_php_version }}/bin/lsphp
+        backlog                 100
+        instances               1
+        priority                0
+        memSoftLimit            2047M
+        memHardLimit            2047M
+        procSoftLimit           1400
+        procHardLimit           1500
+    }
+
+    scripthandler  {
+        add                     lsapi:{{ site_name }}-php php
+        add                     lsapi:{{ site_name }}-php phtml
+    }
+
+    phpIniOverride  {
+{% if site_open_basedir_enabled == 1 %}
+        php_admin_value open_basedir "$VH_ROOT:/tmp"
+{% endif %}
+        php_admin_value mail.log "$VH_ROOTlogs/php-mail.log"
+        php_admin_value error_log "$VH_ROOTlogs/php-error.log"
+    }
+    
+    context / {
+        rewrite  {
+            RewriteBase /
+            RewriteRule ^/index.php$ - [L]
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule . /index.php [L]
+        }
+
+        extraHeaders <<<END_headers
+            set Server "Sitepilot"
+{% if site_block_robots == 1 %}
+            set X-Robots-Tag "noindex, nofollow, nosnippet, noarchive"
+{% endif %}
+{% if site_htst_enabled == 1 %}
+            set Strict-Transport-Security: max-age=31536000
+{% endif %}
+        END_headers
+    }    
+}

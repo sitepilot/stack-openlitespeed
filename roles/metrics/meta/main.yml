@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: lshttpd
+    tags: ["lshttpd"]
