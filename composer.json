@@ -1,13 +1,11 @@
 {
-    "name": "sitepilot/ansible-playbooks",
+    "name": "sitepilot/stack",
     "description": "Ansible playbooks for provisioning web servers optimized for WordPress and Laravel.",
     "type": "library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Nick Jansen",
-            "email": "n.jansen@sitepilot.io"
-        }
-    ],
+    "authors": [{
+        "name": "Nick Jansen",
+        "email": "n.jansen@sitepilot.io"
+    }],
     "require": {}
 }
