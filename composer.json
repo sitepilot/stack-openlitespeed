@@ -1,5 +1,5 @@
 {
-    "name": "sitepilot/stack",
+    "name": "sitepilot/stack-openlitespeed",
     "description": "Ansible playbooks for provisioning web servers optimized for WordPress and Laravel.",
     "type": "library",
     "license": "MIT",
