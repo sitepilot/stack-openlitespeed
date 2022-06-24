@@ -15,7 +15,7 @@ virtualHost {{ site_name }} {
         type                    lsapi
         address                 uds://tmp/lshttpd/{{ site_name }}.sock
         maxConns                {{ site_php_max_children }}
-        env                     PLATFORM=Sitepilot
+        env                     PLATFORM={{ lshttpd_server_name }}
         env                     PHP_LSAPI_CHILDREN={{ site_php_max_children }}
         initTimeout             60
         retryTimeout            0
@@ -55,7 +55,7 @@ virtualHost {{ site_name }} {
         }
 
         extraHeaders <<<END_headers
-            set Server "Sitepilot"
+            set Server "{{ lshttpd_server_name }}"
 {% if site_block_robots == 1 %}
             set X-Robots-Tag "noindex, nofollow, nosnippet, noarchive"
 {% endif %}

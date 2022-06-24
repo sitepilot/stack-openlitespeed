@@ -1,3 +1,2 @@
 ---
-admin_password: "supersecret"
-admin_email: "admin@autopilot.test"
+lshttpd_server_name: "Sitepilot"

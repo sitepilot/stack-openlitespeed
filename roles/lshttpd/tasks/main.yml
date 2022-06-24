@@ -42,7 +42,11 @@
     src: password-reset.j2
     dest: /root/lshttpd-password-reset.sh
     mode: "a+x"
+  when:
+    - admin_password is defined
 
 - name: "{{ hostname }} : lshttpd : set admin password"
   command: "/root/lshttpd-password-reset.sh admin {{ admin_password }}"
   changed_when: false
+  when:
+    - admin_password is defined
