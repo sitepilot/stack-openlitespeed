@@ -2,7 +2,7 @@
 # General
 site_name: ""
 site_password: ""
-site_php_version: "80"
+site_php_version: "8.0"
 site_php_max_children: 5
 site_domains: []
 site_ssh_enabled: false

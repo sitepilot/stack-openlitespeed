@@ -7,27 +7,27 @@
 - name: "{{ php_version }} : install packages"
   apt:
     name:
-      - lsphp{{ php_version }}
-      - lsphp{{ php_version }}-common
-      - lsphp{{ php_version }}-curl
-      - lsphp{{ php_version }}-dbg
-      - lsphp{{ php_version }}-dev
-      - lsphp{{ php_version }}-igbinary
-      - lsphp{{ php_version }}-imagick
-      - lsphp{{ php_version }}-imap
-      - lsphp{{ php_version }}-intl
-      - lsphp{{ php_version }}-mysql
-      - lsphp{{ php_version }}-opcache
-      - lsphp{{ php_version }}-redis
+      - lsphp{{ php_package_versions[php_version] }}
+      - lsphp{{ php_package_versions[php_version] }}-common
+      - lsphp{{ php_package_versions[php_version] }}-curl
+      - lsphp{{ php_package_versions[php_version] }}-dbg
+      - lsphp{{ php_package_versions[php_version] }}-dev
+      - lsphp{{ php_package_versions[php_version] }}-igbinary
+      - lsphp{{ php_package_versions[php_version] }}-imagick
+      - lsphp{{ php_package_versions[php_version] }}-imap
+      - lsphp{{ php_package_versions[php_version] }}-intl
+      - lsphp{{ php_package_versions[php_version] }}-mysql
+      - lsphp{{ php_package_versions[php_version] }}-opcache
+      - lsphp{{ php_package_versions[php_version] }}-redis
     state: present
 
 - name: "{{ php_version }} : install php7 packages"
   apt:
     name:
-      - lsphp{{ php_version }}-json
-      - lsphp{{ php_version }}-ioncube
+      - lsphp{{ php_package_versions[php_version] }}-json
+      - lsphp{{ php_package_versions[php_version] }}-ioncube
     state: present
-  when: php_version == 74
+  when: php_version == 7.4
 
 - name: "{{ php_version }} : generate configuration"
   template:
@@ -36,5 +36,5 @@
     mode: "0644"
   loop:
     - template: php_ini.j2
-      destination: "/usr/local/lsws/lsphp{{ php_version }}/etc/php/{{ php_dot_versions[php_version] }}/mods-available/99-autopilot.ini"
+      destination: "/usr/local/lsws/lsphp{{ php_package_versions[php_version] }}/etc/php/{{ php_version }}/mods-available/99-autopilot.ini"
   notify: reload lshttpd

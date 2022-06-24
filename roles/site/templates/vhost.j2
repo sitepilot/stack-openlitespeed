@@ -22,7 +22,7 @@ virtualHost {{ site_name }} {
         persistConn             1
         respBuffer              0
         autoStart               2
-        path                    lsphp{{ site_php_version }}/bin/lsphp
+        path                    lsphp{{ php_package_versions[site_php_version] }}/bin/lsphp
         backlog                 100
         instances               1
         priority                0

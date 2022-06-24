@@ -85,7 +85,7 @@
       dest: "/opt/sitepilot/sites/{{ site_name }}/home/files"
     - src: "/opt/sitepilot/sites/{{ site_name }}/logs"
       dest: "/opt/sitepilot/sites/{{ site_name }}/home/logs"
-    - src: "/usr/local/lsws/lsphp{{ site_php_version }}/bin/php"
+    - src: "/usr/local/lsws/lsphp{{ php_package_versions[site_php_version] }}/bin/php"
       dest: "/opt/sitepilot/sites/{{ site_name }}/home/.local/bin/php"
 
 - name: "setup acl"
