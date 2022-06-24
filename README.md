@@ -1,4 +1,4 @@
-# Sitepilot Stack
+# OpenLiteSpeed Stack
 
 Ansible playbooks for provisioning optimized web servers for WordPress and Laravel. These playbooks are used by Autopilot (our cloud server control panel) and are perfect for:
 
