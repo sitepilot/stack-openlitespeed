@@ -17,6 +17,7 @@ virtualHost {{ site_name }} {
         maxConns                {{ site_php_max_children }}
         env                     PLATFORM={{ lshttpd_server_name }}
         env                     PHP_LSAPI_CHILDREN={{ site_php_max_children }}
+        env                     SITEPILOT_SITE={{ site_name }}
         initTimeout             60
         retryTimeout            0
         persistConn             1
@@ -55,13 +56,13 @@ virtualHost {{ site_name }} {
         }
 
         extraHeaders <<<END_headers
-            set Server "{{ lshttpd_server_name }}"
 {% if site_block_robots == 1 %}
             set X-Robots-Tag "noindex, nofollow, nosnippet, noarchive"
 {% endif %}
 {% if site_htst_enabled == 1 %}
             set Strict-Transport-Security: max-age=31536000
 {% endif %}
+            set Powered-By "{{ lshttpd_server_name }}"
         END_headers
-    }    
+    }
 }
