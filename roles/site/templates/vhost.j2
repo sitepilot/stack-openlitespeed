@@ -56,13 +56,14 @@ virtualHost {{ site_name }} {
         }
 
         extraHeaders <<<END_headers
+            set Server "{{ lshttpd_server_name }}"
+            set X-Powered-By "{{ lshttpd_server_name }}"
 {% if site_block_robots == 1 %}
             set X-Robots-Tag "noindex, nofollow, nosnippet, noarchive"
 {% endif %}
 {% if site_htst_enabled == 1 %}
-            set Strict-Transport-Security: max-age=31536000
+            set Strict-Transport-Security "max-age=31536000"
 {% endif %}
-            set Powered-By "{{ lshttpd_server_name }}"
         END_headers
     }
 }
